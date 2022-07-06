@@ -1,1 +1,1 @@
-from .login import CookieTokenObtainPairView, CookieTokenRefreshView, RetrieveUserView
+from .auth import CookieTokenObtainPairView, CookieTokenRefreshView, LogOut, RetrieveUserView
