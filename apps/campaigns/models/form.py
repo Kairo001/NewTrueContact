@@ -43,9 +43,9 @@ class FormField(BaseModel):
 
   form = models.ForeignKey(Form, on_delete=models.CASCADE, related_name="fields")
   name = models.CharField(_("name"), max_length=252)
-  tipo = models.PositiveIntegerField(_("field type"), choices=TYPE_CHOICES)
-  values_select = models.TextField(_("Values of select"),blank=True, null=True, help_text=_("This parameter is required when the field is of type select."))
-  is_required = models.BooleanField(_("Required field?"))
+  type = models.PositiveIntegerField(_("field type"), choices=TYPE_CHOICES)
+  values_select = models.TextField(_("values of select"),blank=True, null=True, help_text=_("This parameter is required when the field is of type select."))
+  is_required = models.BooleanField(_("required field?"))
 
   class Meta:
     """Meta definition for FieldForm."""

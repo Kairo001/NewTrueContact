@@ -9,7 +9,10 @@ from apps.managements.models import Management
 from apps.campaigns.models import FormField
 
 class DataField(models.Model):
-  """Model definition for DataField."""
+  """Model definition for DataField.
+  
+  The instances of this model will be the campaign form responses for each of the managements.
+  """
 
   management = models.ForeignKey(Management, on_delete=models.PROTECT, related_name="data_fields")
   form_field = models.ForeignKey(FormField, on_delete=models.PROTECT)

@@ -41,7 +41,7 @@ class OriginManagement(models.Model):
 
   def __str__(self):
     """Unicode representation of Origin."""
-    pass
+    return self.name
 
 class Management(BaseModel):
   """Model definition for Management.
@@ -69,4 +69,4 @@ class Management(BaseModel):
 
   def __str__(self):
     """Unicode representation of Management."""
-    pass
+    return self.id

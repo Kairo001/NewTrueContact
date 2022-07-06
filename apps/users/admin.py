@@ -2,7 +2,7 @@
 
 from django.contrib import admin
 
-# Modelos
+# Models
 from apps.users.models import UserProfile, Label, Type, DataProfile
 from django.contrib.auth import get_user_model
 User = get_user_model()

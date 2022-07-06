@@ -7,7 +7,10 @@ from django.utils.translation import gettext as _
 from apps.base.models import BaseModel
 
 class UserProfile(BaseModel):
-  """Model definition for UerProfile."""
+  """Model definition for UerProfile.
+  
+  The instances of this model will be the contacts or clients of the company and will also be the profiles of the users of the platform.
+  """
 
   first_name = models.CharField(_("First name"), max_length=64)
   last_name = models.CharField(_("Last name"), max_length=64)
