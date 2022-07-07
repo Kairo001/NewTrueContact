@@ -15,6 +15,7 @@ class UserProfile(BaseModel):
   first_name = models.CharField(_("First name"), max_length=64)
   last_name = models.CharField(_("Last name"), max_length=64)
   document = models.CharField(_("Document"), max_length=20, blank=True, null=True)
+  image = models.ImageField(_('Profile picture'), upload_to='profile_pictures/', blank=True, null=True)
 
   class Meta:
     """Meta definition for UerProfile."""
@@ -31,3 +32,4 @@ class UserProfile(BaseModel):
 
   def get_full_name(self):
     """Method to get the full name of the user."""
+    return f'{self.first_name} {self.last_name}'

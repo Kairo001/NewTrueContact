@@ -81,3 +81,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     """Unicode representation of User."""
     return self.username
 
+  def get_short_name(self):
+    return self.user_profile.get_short_name()
+
+  def get_full_name(self):
+    return self.user_profile.get_full_name()
+  
