@@ -33,3 +33,7 @@ class UserProfile(BaseModel):
   def get_full_name(self):
     """Method to get the full name of the user."""
     return f'{self.first_name} {self.last_name}'
+
+  def get_profile_data(self):
+    """Method to get all profile data."""
+    return list(self.data.filter(is_active=True).values('label__name', 'type__name', 'data'))

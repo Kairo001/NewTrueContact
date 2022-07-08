@@ -50,7 +50,7 @@ class User(AbstractBaseUser, PermissionsMixin):
             "unique": _("A user with that username already exists."),
         },
     )
-  user_profile = models.OneToOneField(UserProfile, on_delete=models.PROTECT)
+  user_profile = models.OneToOneField(UserProfile, on_delete=models.PROTECT, error_messages={"unique":"Hola papa"})
 
   is_staff = models.BooleanField(
         _("staff status"),

@@ -39,7 +39,7 @@ class Type(models.Model):
     """Unicode representation of Type."""
     return self.name
 
-class DataProfile(models.Model):
+class DataProfile(BaseModel):
   """Model definition for DataProfile."""
 
   user_profile = models.ForeignKey(UserProfile, on_delete=models.PROTECT, related_name="data")
