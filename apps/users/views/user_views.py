@@ -2,7 +2,7 @@
 
 # DjangoREstFramework
 from rest_framework import viewsets
-from rest_framework.parsers import JSONParser
+from rest_framework.parsers import JSONParser, MultiPartParser
 from rest_framework.response import Response
 from rest_framework import status
 
@@ -11,7 +11,7 @@ from apps.users.serializers import UserSerializer, PasswordSerializer
 
 class UserViewSet(viewsets.ModelViewSet):
   serializer_class = UserSerializer
-  parser_classes = [JSONParser]
+  parser_classes = [JSONParser, MultiPartParser]
 
   def get_queryset(self, pk=None):
     if pk is None:

@@ -6,6 +6,10 @@ from django.utils.translation import gettext as _
 # Base model
 from apps.base.models import BaseModel
 
+# User Model
+from django.contrib.auth import get_user_model
+User = get_user_model()
+
 class UserProfile(BaseModel):
   """Model definition for UerProfile.
   
@@ -16,6 +20,8 @@ class UserProfile(BaseModel):
   last_name = models.CharField(_("Last name"), max_length=64)
   document = models.CharField(_("Document"), max_length=20, blank=True, null=True)
   image = models.ImageField(_('Profile picture'), upload_to='profile_pictures/', blank=True, null=True)
+
+  agent = models.ForeignKey(User, on_delete=models.PROTECT, blank=True, null=True)
 
   class Meta:
     """Meta definition for UerProfile."""

@@ -19,8 +19,7 @@ class TypeSerializer(serializers.ModelSerializer):
   def to_representation(self, instance):
     return {
       "id" : instance.id,
-      "name" : instance.name,
-      "labels" : list(instance.label.all().values('id','name'))   
+      "name" : instance.name
     }
 
 class DataProfileSerializer(serializers.ModelSerializer):

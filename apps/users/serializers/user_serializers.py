@@ -5,25 +5,11 @@ from rest_framework import serializers
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
-# Models
-from apps.users.models import UserProfile
-
 class UserSerializer(serializers.ModelSerializer):
-
-  user_profile = serializers.IntegerField()
 
   class Meta:
     model = User
     exclude = ['is_superuser', 'is_staff', 'last_login', 'is_active']
-
-  def validate_user_profile(self, value):
-    if not UserProfile.objects.filter(pk=value).exists():
-      raise serializers.ValidationError('No existe un perfil de usuario con este id.')
-
-    if User.objects.filter(user_profile=value).exists():
-      raise serializers.ValidationError('Este perfil ya pertenece a otro usuario.')
-
-    return value
 
   def to_representation(self, instance):
     return {

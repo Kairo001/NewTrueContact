@@ -39,6 +39,10 @@ class Type(models.Model):
     """Unicode representation of Type."""
     return self.name
 
+  def get_labels(self):
+    """Method to get all profile data."""
+    return list(self.label.all().values('id','name'))
+
 class DataProfile(BaseModel):
   """Model definition for DataProfile."""
 
