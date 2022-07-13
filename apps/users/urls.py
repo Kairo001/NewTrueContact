@@ -5,7 +5,7 @@ from django.urls import path
 
 # Views to get and refresh the token.
 from .views import CookieTokenObtainPairView, CookieTokenRefreshView, RetrieveUserView, LogOut
-from apps.users.routes.users import urlpatterns2
+from apps.users.routes.users import user_urls
 
 urlpatterns = [
   path('auth/token/', CookieTokenObtainPairView.as_view(), name='token_obtain_pair'),
@@ -14,4 +14,4 @@ urlpatterns = [
   path('me/', RetrieveUserView.as_view(), name="retriview"),
 ]
 
-urlpatterns += urlpatterns2
+urlpatterns += user_urls

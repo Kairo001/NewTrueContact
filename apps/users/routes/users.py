@@ -9,4 +9,4 @@ router.register(r'labels', LabelViewSet, basename='labels')
 router.register(r'types', TypeViewSet, basename='types')
 router.register(r'data_profile', DataProfileViewSet, basename='profil_data')
 
-urlpatterns2 = router.urls
+user_urls = router.urls
