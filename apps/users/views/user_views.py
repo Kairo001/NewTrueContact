@@ -5,18 +5,30 @@ from rest_framework import viewsets
 from rest_framework.parsers import JSONParser, MultiPartParser
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.decorators import action
 
 # Serializers
-from apps.users.serializers import UserSerializer, PasswordSerializer
+from apps.users.serializers import UserSerializer, PasswordSerializer, ListUserSerializer, UpdatePasswordSerializer
 
 class UserViewSet(viewsets.ModelViewSet):
+  list_serializer_class = ListUserSerializer
   serializer_class = UserSerializer
   parser_classes = [JSONParser, MultiPartParser]
 
   def get_queryset(self, pk=None):
     if pk is None:
-        return self.get_serializer().Meta.model.objects.filter(is_active=True)
+        return self.list_serializer_class.Meta.model.objects.filter(is_active=True)
     return self.get_serializer().Meta.model.objects.filter(id=pk, is_active=True).first()
+
+  @action(detail=True, methods=['put'])
+  def update_password(self, request, pk=None):
+    """Endpoint to update the user's password."""
+    instance = self.get_object()
+    update_password_serializer = UpdatePasswordSerializer(data=request.data, context={'username':instance.username})
+    update_password_serializer.is_valid(raise_exception=True)
+    instance.set_password(request.data['password'])
+    instance.save()
+    return Response(status.HTTP_200_OK)
 
   def create(self, request, *args, **kwargs):
     password_serializer = PasswordSerializer(data=request.data)
@@ -31,8 +43,15 @@ class UserViewSet(viewsets.ModelViewSet):
     
     page = self.paginate_queryset(queryset)
     if page is not None:
-        serializer = self.get_serializer(page, many=True)
-        return self.get_paginated_response(serializer.data)
+      serializer = self.list_serializer_class(page, many=True)
+      return self.get_paginated_response(serializer.data)
 
-    serializer = self.get_serializer(queryset, many=True)
+    serializer = self.list_serializer_class(queryset, many=True)
     return Response(serializer.data)
+
+  def destroy(self, request, *args, **kwargs):
+    """EndPoint to update the 'is_active' field to false."""
+    instance = self.get_object()
+    instance.is_active = False
+    instance.save()
+    return Response(status=status.HTTP_204_NO_CONTENT)

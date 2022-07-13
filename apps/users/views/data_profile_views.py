@@ -41,5 +41,5 @@ class DataProfileViewSet(viewsets.ModelViewSet):
 
   def get_queryset(self, pk=None):
     if pk is None:
-        return self.get_serializer().Meta.model.objects.all()
-    return self.get_serializer().Meta.model.objects.filter(id=pk).first()
+        return self.get_serializer().Meta.model.objects.filter(is_active=True)
+    return self.get_serializer().Meta.model.objects.filter(id=pk, is_actice=True).first()

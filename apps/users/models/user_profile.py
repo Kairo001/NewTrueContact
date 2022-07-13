@@ -42,4 +42,4 @@ class UserProfile(BaseModel):
 
   def get_profile_data(self):
     """Method to get all profile data."""
-    return list(self.data.filter(is_active=True).values('label__name', 'type__name', 'data'))
+    return list(self.data.filter(is_active=True).values('data', label_name=models.F("label__name"), type_name=models.F("type__name")))

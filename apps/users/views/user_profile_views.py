@@ -8,6 +8,9 @@ from rest_framework.decorators import action
 # Serializers
 from apps.users.serializers.user_profile_serializers import UserProfileSerializer, ListUserProfileSerializer
 
+# Models
+from apps.users.models import DataProfile
+
 class UserProfileViewSet(viewsets.ModelViewSet):
   serializer_class = UserProfileSerializer
   list_serializer_class = ListUserProfileSerializer
@@ -24,6 +27,16 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     instance = self.get_object()
     data = instance.get_profile_data()
     return Response(data,status.HTTP_200_OK)
+
+  @action(detail=True, methods=['get'])
+  def number_contacts(self, request, pk=None):
+    """EndPoint to get all the data of a user profile."""
+    data = DataProfile.objects.filter(data=pk)
+    users_profiles = []
+    for fact in data:
+      users_profiles.append(self.list_serializer_class.Meta.model.objects.get(id=fact.user_profile.id))
+    serializer = self.list_serializer_class(users_profiles, many=True)
+    return Response(serializer.data,status.HTTP_200_OK)
 
   def list(self, request, *args, **kwargs):
     """EndPoint to list all user profiles that are active."""
