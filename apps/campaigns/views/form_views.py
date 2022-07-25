@@ -22,3 +22,19 @@ class FormViewSet(viewsets.ModelViewSet):
     instance.is_active = False
     instance.save()
     return Response(status=status.HTTP_204_NO_CONTENT)
+
+class FormFieldViewSet(viewsets.ModelViewSet):
+  serializer_class = FormFieldSerializer
+  parser_classes = [JSONParser]
+
+  def get_queryset(self, pk=None):
+    if pk is None:
+      return self.get_serializer().Meta.model.objects.filter(is_active=True)
+    return self.get_serializer().Meta.model.objects.filter(id=pk, is_active=True).first()
+
+  def destroy(self, request, *args, **kwargs):
+    """EndPoint to update the 'is_active' field to false."""
+    instance = self.get_object()
+    instance.is_active = False
+    instance.save()
+    return Response(status=status.HTTP_204_NO_CONTENT)
