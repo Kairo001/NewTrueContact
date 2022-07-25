@@ -10,10 +10,17 @@ from rest_framework.decorators import action
 # Serializers
 from apps.users.serializers import UserSerializer, PasswordSerializer, ListUserSerializer, UpdatePasswordSerializer
 
+# Filters
+from filters.mixins import FiltersMixin
+from rest_framework import filters
+
 class UserViewSet(viewsets.ModelViewSet):
   list_serializer_class = ListUserSerializer
   serializer_class = UserSerializer
   parser_classes = [JSONParser, MultiPartParser]
+  filter_backends = [filters.SearchFilter, filters.OrderingFilter]
+  search_fields = ['first_name', 'last_name', 'username']
+  ordering = ['username']
 
   def get_queryset(self, pk=None):
     if pk is None:

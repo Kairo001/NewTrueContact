@@ -5,6 +5,7 @@ djangorestframework==3.13.1
 Pillow==9.1.1
 djangorestframework-simplejwt==5.2.0
 drf-yasg==1.20.0
+drf-url-filters==0.5.1
 
 # Local dependecies
 django-extensions==3.1.5

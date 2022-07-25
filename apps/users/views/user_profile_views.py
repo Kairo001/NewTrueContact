@@ -4,9 +4,14 @@ from rest_framework.parsers import JSONParser, MultiPartParser
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import action
+from rest_framework.pagination import LimitOffsetPagination
 
 # Serializers
 from apps.users.serializers.user_profile_serializers import UserProfileSerializer, ListUserProfileSerializer
+
+# Filters
+from filters.mixins import FiltersMixin
+from rest_framework import filters
 
 # Models
 from apps.users.models import DataProfile
@@ -14,7 +19,10 @@ from apps.users.models import DataProfile
 class UserProfileViewSet(viewsets.ModelViewSet):
   serializer_class = UserProfileSerializer
   list_serializer_class = ListUserProfileSerializer
+  filter_backends = [filters.SearchFilter, filters.OrderingFilter]
   parser_classes = [JSONParser, MultiPartParser]
+  search_fields = ['first_name', 'last_name', 'document', 'data__data']
+  ordering = ['first_name']
 
   def get_queryset(self, pk=None):
     if pk is None:
