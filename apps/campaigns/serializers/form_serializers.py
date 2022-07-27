@@ -11,7 +11,11 @@ class FormSerializer(serializers.ModelSerializer):
     exclude = ['is_active', 'created_date', 'modified_date']
 
 class FormFieldSerializer(serializers.ModelSerializer):
-
   class Meta:
     model = FormField
     exclude = ['is_active', 'created_date', 'modified_date']
+
+  def validate_form(self, value):
+    if value.is_active == False:
+      raise serializers.ValidationError("No existe un formulario con este id.")
+    return value

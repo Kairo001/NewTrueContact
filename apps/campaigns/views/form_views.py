@@ -4,6 +4,9 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.parsers import JSONParser
 
+# Filters
+from rest_framework import filters
+
 # Serializers
 from apps.campaigns.serializers import FormSerializer, FormFieldSerializer
 
@@ -26,6 +29,8 @@ class FormViewSet(viewsets.ModelViewSet):
 class FormFieldViewSet(viewsets.ModelViewSet):
   serializer_class = FormFieldSerializer
   parser_classes = [JSONParser]
+  filter_backends = [filters.SearchFilter]
+  search_fields = ['=form__id']
 
   def get_queryset(self, pk=None):
     if pk is None:

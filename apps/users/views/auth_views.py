@@ -1,3 +1,5 @@
+# Django
+from django.conf import settings
 
 #RestFramework
 from rest_framework import permissions, status
@@ -19,8 +21,8 @@ class CookieTokenObtainPairView(TokenObtainPairView):
   This view inherits from TokenObteinPairView so that the token is not included in the response but is stored in the cookies of the person who made the request with the "httonly" argument for greater security."""
   def finalize_response(self, request, response, *args, **kwargs):
     if response.data.get('refresh'):
-      cookie_max_age = 3600 * 24 * 14 # 14 days
-      response.set_cookie('refresh_token', response.data['refresh'], max_age=cookie_max_age, httponly=True )
+      cookie_expires = settings.SIMPLE_JWT['REFRESH_TOKEN_LIFETIME'].total_seconds()
+      response.set_cookie('refresh_token', response.data['refresh'], max_age=cookie_expires, httponly=True)
       del response.data['refresh']
     return super().finalize_response(request, response, *args, **kwargs)
 

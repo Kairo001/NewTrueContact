@@ -76,20 +76,22 @@ TEMPLATES = [
 WSGI_APPLICATION = 'config.wsgi.application'
 
 #Cors & Csrf
-CORS_ORIGIN_WHITELIST = [
+CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
     'http://localhost:8000',
     'http://127.0.0.1:8000',
     'http://127.0.0.1:3000',
-    'http://192.168.10.68:3000'
+    'http://192.168.10.68:3000',
 ]
+
+CORS_ALLOW_CREDENTIALS=True
 
 CSRF_TRUSTED_ORIGINS = [
     'http://localhost:3000',
     'http://localhost:8000',
     'http://127.0.0.1:8000',
     'http://127.0.0.1:3000',
-    'http://192.168.10.68:3000'
+    'http://192.168.10.68:3000',
 ]
 
 # Password validation

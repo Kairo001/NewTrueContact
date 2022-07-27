@@ -22,7 +22,7 @@ class Form(BaseModel):
 
   def __str__(self):
     """Unicode representation of Form."""
-    self.name
+    return self.name
 
 class FormField(BaseModel):
   """Model definition for FieldForm.
